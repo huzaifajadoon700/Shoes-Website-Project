@@ -1,0 +1,31 @@
+
+* {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.cards-wrapper{
+    display: flex;
+    justify-content: center;
+}
+.carousel{
+    background-image: url(/public/images/bgimage.jpg);
+    color: white;
+    
+}
+#heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+.card{
+    margin: 20px;
+}
+.container-fluid{
+    display: flex;
+margin: 5px;
+font-size: 1.3rem;
+}
+
+
+
