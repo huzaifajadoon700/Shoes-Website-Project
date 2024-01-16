@@ -42,7 +42,7 @@ function Footersec (){
       
           <Link to="privacy" as="a" style={{ textDecoration: "none", color: "white", margin: "4px" }}>Privacy Policy</Link>
           <Link to="terms" as="a" style={{ textDecoration: "none", color: "white", margin: "4px" }}>Terms & Conditions</Link>
-          <Link to="contactus" as="a" style={{ textDecoration: "none", color: "white", margin: "4px" }}>Contact us</Link>
+          <Link to="Contactus" as="a" style={{ textDecoration: "none", color: "white", margin: "4px" }}>Contact us</Link>
         </div>
 
       <div class="col"style={{marginTop:"20px",display:"flex",flexDirection:"column",justifyContent:"space-between"}}>

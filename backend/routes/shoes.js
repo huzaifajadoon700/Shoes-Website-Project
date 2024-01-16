@@ -1,6 +1,7 @@
 import  express  from 'express';
 import multer from "multer";
-import { addshoe, deleteProduct, getShow, updateProduct } from '../controllers/shoes.js';
+import { addshoe, deleteProduct, viewproducts } from '../controllers/shoes.js';
+import { authorizetoken } from '../middleware/middleware.js';
 const router =express.Router();
 
 const storage= multer.diskStorage({
@@ -14,16 +15,8 @@ const storage= multer.diskStorage({
 
 const upload= multer({storage: storage,limits: { fileSize: 5 * 1024 * 1024 },});
 
-
-router.post("/",upload.single('productImage'), addshoe );
-
-
-
-router.get("/",getShow);
-
-// router.post("/",addshoe);
-router.post("/", upload.single('productImage'), addshoe);
-router.delete("/:productId", deleteProduct); 
-router.put("/:productId", updateProduct);
+router.get("/",authorizetoken,viewproducts);
+router.post("/",authorizetoken,upload.single('productImage'), addshoe);
+router.delete("/:productId",authorizetoken, deleteProduct); 
 
 export default router;

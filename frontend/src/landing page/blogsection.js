@@ -1,9 +1,11 @@
+import Navbar from "./navbar";
 
 function Blogsection(){
 
 return(
   
     <div style={{backgroundColor:"grey",marginTop:"-8px",height:"650px",alignItems:"center"}} >
+      <Navbar/>
     <h2 style={{display:"flex",justifyContent:"center",alignItems:"center",padding:"10px",color:"white",fontFamily: "YourChosenFont"}}>Blogs</h2>
     <div className="container" style={{display:"flex",justifyContent:"center"}}>
         

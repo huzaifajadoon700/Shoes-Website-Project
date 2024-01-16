@@ -5,21 +5,17 @@ import Sidebar from './sidebar';
 import Dashboard from './Dashboard';
 
 function Admin() {
-    const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
-  
-    const OpenSidebar = () => {
-      setOpenSidebarToggle(!openSidebarToggle);
-    };
+   
   
     return (
   <div >
   <div class="first-row" >
-    <Header OpenSidebar={OpenSidebar}/>
+    <Header />
   </div>
   
   <div class="second-row">
     <div class="first-column">
-      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />  
+      <Sidebar />  
     </div>
   
     <div class="second-column">

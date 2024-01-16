@@ -2,12 +2,10 @@ import { shoeModel } from "../models/shoes.js";
 
 export const addshoe = (req, res) => {
   const { path: productImage } = req.file;
-  // console.log(req.body);
   const mdl = new shoeModel({
     title: req.body.productName,
     description: req.body.productDescription,
     price: req.body.productPrice,
-  
     productImage,
   });
   console.log(mdl);
@@ -15,32 +13,7 @@ export const addshoe = (req, res) => {
 };
 
 
-
-// export const addshoe = async (req, res) => {
-//   console.log("Request Body:", req.body);
-//   const { productName, productPrice, productDescription } = req.body;
-//   const { path: productImage } = req.file;
-
-//   const newProduct = new shoeModel({
-//     title: productName,
-//     price: productPrice,
-//     description: productDescription,
-//     productImage,
-//   });
-
-//   try {
-//     await newProduct.save();
-//     res.json(newProduct);
-//   } catch (error) {
-//     console.log("Not Saved...", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// };
-
-
-
-
-export const getShow = async (req, res) => {
+export const viewproducts = async (req, res) => {
   try {
     const viewdata = await shoeModel.find();
     res.json(viewdata);
@@ -49,7 +22,6 @@ export const getShow = async (req, res) => {
   }
 };
 
-// controllers/shoes.js
 
 export const deleteProduct = async (req, res) => {
   const productId = req.params.productId;
@@ -68,37 +40,34 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-//update products
 
-// controllers/shoes.js
 
-// ...
 
-export const updateProduct = async (req, res) => {
-  console.log("Received update request for productId:", req.params.productId);
-  console.log("Request body:", req.body);
-  const productId = req.params.productId;
+// export const updateProduct = async (req, res) => {
+//   console.log("Received update request for productId:", req.params.productId);
+//   console.log("Request body:", req.body);
+//   const productId = req.params.productId;
 
-  try {
-    const updatedProduct = await shoeModel.findByIdAndUpdate(
-      productId,
-      {
-        title: req.body.productName,
-        price: req.body.productPrice,
-        description: req.body.productDescription,
-      },
-      { new: true }
-    );
+//   try {
+//     const updatedProduct = await shoeModel.findByIdAndUpdate(
+//       productId,
+//       {
+//         title: req.body.productName,
+//         price: req.body.productPrice,
+//         description: req.body.productDescription,
+//       },
+//       { new: true }
+//     );
 
-    if (!updatedProduct) {
-      return res.status(404).json({ error: "Product not found" });
-    }
+//     if (!updatedProduct) {
+//       return res.status(404).json({ error: "Product not found" });
+//     }
 
-    res.json(updatedProduct);
-  } catch (error) {
-    console.error("Error updating product:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
+//     res.json(updatedProduct);
+//   } catch (error) {
+//     console.error("Error updating product:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
 
-// ...
+

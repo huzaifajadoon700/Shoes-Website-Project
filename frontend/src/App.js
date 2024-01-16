@@ -49,9 +49,8 @@ function App() {
       
         <Routes>
           <Route path="/" element={<Landingpage />} />
-          {/* <Route path="/admindashboard" element={<Admin1 />} /> */}
-          {/* practice */}
-          <Route path="/admindashboard1" element={<Admin/>} />
+         
+          <Route path="/admin" element={<Admin/>} />
           
           <Route path="/footersec" element={<Footersec />} />
           <Route path="/blogsection" element={<Blogsection />} />
@@ -69,7 +68,7 @@ function App() {
           <Route path="/terms" element={<Term />} />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/privacy" element={<Privacy />} />
-          <Route path="/contactus" element={<Contactus />} />
+          <Route path="/Contactus" element={<Contactus />} />
           <Route path="/faqs" element={<Faq />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />

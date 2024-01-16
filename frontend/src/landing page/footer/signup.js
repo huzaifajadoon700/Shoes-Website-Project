@@ -10,14 +10,16 @@ import {
   MDBIcon,
   MDBCardImage,
 } from "mdb-react-ui-kit";
-import { addsignup } from "../../services/api";
+import { addsignup,addGoogleUser } from "../../services/api";
 
-
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from "jwt-decode";
+// import { addGoogleUser } from "../services/api";
 function Signup() {
   const [signupdata, setSignupData] = useState({
     Name: "",
     Email: "",
-  Password: "",
+    Password: "",
     Phonenumber: "",
   });
 
@@ -29,11 +31,45 @@ function Signup() {
     setSignupData({ ...signupdata, [e.target.name]: e.target.value });
   };
 
+  // const handleSignup = async (e) => {
+  //   e.preventDefault();
+  //   await addsignup(signupdata);
+  // };
   const handleSignup = async (e) => {
     e.preventDefault();
-    await addsignup(signupdata);
-  };
+    try {
+      const response = await addsignup(signupdata);
 
+      // Check if the response contains an error message
+      if (response.data && response.data.message) {
+        setError(response.data.message);
+        setSuccessMessage(null);
+      } else {
+        // Registration successful
+        setSuccessMessage("User registered successfully.");
+        setError(null);
+      }
+    } catch (error) {
+      // Handle other errors (e.g., network issues)
+      setError("Email already registered use a different email.");
+      setSuccessMessage(null);
+    }
+  };
+  const handleGoogleSignup = async (credentialResponse) => {
+    const credentialResponseDecoded = jwtDecode(credentialResponse.credential);
+    const email = credentialResponseDecoded.email;
+    const name = credentialResponseDecoded.name;
+    const googleObj ={
+      name : name,
+      email : email
+    }
+
+    console.log("Google Object:", googleObj);
+
+    // await addGoogleUser(googleEmail, googlePicture, isGoogleAccount);
+    console.log(name,email);
+    const response = await addGoogleUser(googleObj);
+  };
   return (
     <MDBContainer fluid>
       <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
@@ -47,7 +83,6 @@ function Signup() {
               <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                 Sign up
               </p>
-
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="user me-3" size="lg" />
                 <MDBInput
@@ -59,7 +94,6 @@ function Signup() {
                   className="w-100"
                 />
               </div>
-
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="envelope me-3" size="lg" />
                 <MDBInput
@@ -80,7 +114,6 @@ function Signup() {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-
               <div className="d-flex flex-row align-items-center mb-4">
                 <MDBIcon fas icon="lock me-3" size="lg" />
                 <MDBInput
@@ -91,7 +124,6 @@ function Signup() {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-
               <MDBBtn
                 className="mb-4"
                 size="lg"
@@ -100,6 +132,25 @@ function Signup() {
               >
                 {loading ? "Registering..." : "Register"}
               </MDBBtn>
+
+
+              {/* google loginn */}
+              {/* <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  const credentialResponseDecoded=jwtDecode(credentialResponse.credential);
+                  console.log(credentialResponseDecoded);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              /> */}
+
+<GoogleLogin
+          onSuccess={handleGoogleSignup}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
 
               {error && <div className="text-danger mb-3">{error}</div>}
               {successMessage && (
@@ -125,54 +176,3 @@ function Signup() {
 }
 
 export default Signup;
-
-// import React, { useState } from 'react';
-
-// const SignIn = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState(null);
-
-//   const handleSignIn = async (e) => {
-//     e.preventDefault();
-
-//     // Your authentication logic goes here
-//     try {
-//       // Example: You might use Firebase authentication, an API call to your server, or any other authentication method
-//       // For simplicity, we'll just log the email and password for now
-//       console.log(`Sign In - Email: ${email}, Password: ${password}`);
-//     } catch (error) {
-//       setError('Invalid email or password. Please try again.');
-//     }
-//   };
-
-//   return (
-//     <div className="signin-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-//       <h2 style={{fontWeight:"bold",fontFamily: "YourChosenFont"}}>Sign In</h2>
-//       {error && <div className="error-message">{error}</div>}
-//       <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} onSubmit={handleSignIn}>
-//         <label>Email:</label>
-//         <input
-//           type="email"
-//           placeholder="Enter your email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-
-//         <label>Password:</label>
-//         <input
-//           type="password"
-//           placeholder="Enter your password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-
-//         <button type="submit">Sign In</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SignIn;

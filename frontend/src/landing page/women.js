@@ -1,6 +1,6 @@
 import Footersec from "./footer/Footersec";
 import Navbar from "./navbar";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { Items } from "../App";
 function Women() {
   const { names, setvalue, cartx, setCartx } = useContext(Items);
